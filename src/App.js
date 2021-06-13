@@ -1,12 +1,17 @@
-import './App.css';
+import "./App.css";
+
+import ColourList from './components/ColourList/ColourList';
+import SearchInput from "./components/SearchInput/SearchInput";
 
 function App() {
   return (
     <div className="App">
-      <div>Hello World</div>
+
+      <SearchInput />
+      <ColourList />  
+
     </div>
   );
 }
 
 export default App;
-
