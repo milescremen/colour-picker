@@ -12,6 +12,7 @@ function App() {
   
   const processData = (colours) => {
     const processedColours = colours.map((colour) => {
+      colour.id = 1000000 * Math.random();
       colour.rgb = hexToRGB(colour.hex);
       colour.hsl = hexToHSL(colour.hex);
 
@@ -19,6 +20,13 @@ function App() {
     });
     return processedColours;
   }
+
+  const searchData = (searchTerm) => {
+    const filter = colours.filter(colour => colour.hex === searchTerm);
+    console.log(filter);
+    setColours(filter);
+  }
+
 
   useEffect(() => {
     async function fetchData() {
@@ -32,7 +40,7 @@ function App() {
 
   return (
     <div className="App">
-      <SearchInput />
+      <SearchInput searchData={searchData} />
       <ColourList colours={colours}/>
     </div>
   );

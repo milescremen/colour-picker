@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import './SearchInput.css';
 
-function SearchInput() {
+function SearchInput({ searchData}) {
   const [text, setText] = useState('');
 
   const search = (e) => {
     e.preventDefault();
 
     setText('');
+
+    searchData(text);
 
   }
 

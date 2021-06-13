@@ -11,7 +11,7 @@ function ColourList({colours}) {
       <h4>HSL</h4>
     </div>
 
-    {colours.map((colour) => (<ColourItem colour={colour} />))}
+    {colours.map((colour) => (<ColourItem key={colour.id} colour={colour} />))}
   </div>;
 }
 
