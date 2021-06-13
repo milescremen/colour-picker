@@ -6,8 +6,8 @@ function ColourItem({colour}) {
     <div className="colour-item-container">
       <p>{colour.color}</p>
       <p>{colour.hex}</p>
-      <p>172, 194, 217</p>
-      <p>211, 37, 76</p>
+      <p>{colour.rgb}</p>
+      <p>{colour.hsl}</p>
     </div>
   );
 }
