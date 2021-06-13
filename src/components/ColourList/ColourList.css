@@ -1,0 +1,8 @@
+.colour-list-container {
+	min-width: 60vw;
+}
+
+.list-headings {
+	display: flex;
+	justify-content: space-between;
+}

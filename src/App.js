@@ -6,10 +6,8 @@ import SearchInput from "./components/SearchInput/SearchInput";
 function App() {
   return (
     <div className="App">
-
       <SearchInput />
-      <ColourList />  
-
+      <ColourList />
     </div>
   );
 }
