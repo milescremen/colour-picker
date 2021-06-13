@@ -12,19 +12,38 @@ function App() {
   
   const processData = (colours) => {
     const processedColours = colours.map((colour) => {
-      colour.id = 1000000 * Math.random();
+      colour.id = Math.floor(1000000 * Math.random());
       colour.rgb = hexToRGB(colour.hex);
       colour.hsl = hexToHSL(colour.hex);
 
       return colour;
     });
+
     return processedColours;
   }
 
   const searchData = (searchTerm) => {
-    const filter = colours.filter(colour => colour.hex === searchTerm);
-    console.log(filter);
-    setColours(filter);
+    // Sort colours 
+
+    const colour = colours.filter(colour => colour.hex === searchTerm);
+
+    console.log("triggered search data");
+    setColours(sortData(colours));
+  }
+
+  // Sort by the utfc value of the hex code
+  const sortData = (colours) => {
+    return colours.sort(function(a, b){
+      if(a.hex < b.hex) {
+        return -1;
+      }
+      else if(a.hex > b.hex) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    }) 
   }
 
 
@@ -32,11 +51,14 @@ function App() {
     async function fetchData() {
       const res = await axios.get('https://raw.githubusercontent.com/okmediagroup/color-test-resources/master/xkcd-colors.json');
       const { colors } = res.data;
-     
-      setColours(processData(colors));
+
+      const processed = processData(colors);
+
+      setColours(processed);
     }
     fetchData();
-  }, [])
+  }, []);
+
 
   return (
     <div className="App">

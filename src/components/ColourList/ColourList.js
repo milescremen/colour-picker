@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './ColourList.css';
 import ColourItem from '../ColourItem/ColourItem';
 

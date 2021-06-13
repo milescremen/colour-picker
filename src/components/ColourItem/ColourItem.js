@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./ColourItem.css";
 
 function ColourItem({colour}) {
+
+  useEffect((colour)=>{
+    console.log(colour);
+  }, [colour]);
   return (
     <div className="colour-item-container">
       <p>{colour.color}</p>
