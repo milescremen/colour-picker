@@ -10,5 +10,8 @@
 .colour-input input {
 	padding: .5em;
 	border-radius: 0.25em;
+}
 
+.form-button {
+	display: none;
 }
