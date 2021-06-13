@@ -24,9 +24,8 @@ function App() {
     async function fetchData() {
       const res = await axios.get('https://raw.githubusercontent.com/okmediagroup/color-test-resources/master/xkcd-colors.json');
       const { colors } = res.data;
-
+     
       setColours(processData(colors));
-      //setColours(colors);
     }
     fetchData();
   }, [])
