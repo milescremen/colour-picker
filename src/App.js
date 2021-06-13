@@ -2,17 +2,18 @@ import "./App.css";
 import ColourList from './components/ColourList/ColourList';
 import SearchInput from "./components/SearchInput/SearchInput";
 import { useEffect, useState } from 'react';
+import { hexToHSL, hexToRGB } from "./utility/colour";
+
 const axios = require('axios');
 
 
 function App() {
-  
   const [colours, setColours] = useState([]);
   
   const processData = (colours) => {
     const processedColours = colours.map((colour) => {
-      colour.rgb = "1, 3, 2";
-      colour.hsl = "3, 2, 3";
+      colour.rgb = hexToRGB(colour.hex);
+      colour.hsl = hexToHSL(colour.hex);
 
       return colour;
     });
