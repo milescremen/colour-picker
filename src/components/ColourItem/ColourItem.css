@@ -1,6 +1,10 @@
 .colour-item-container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
+}
+
+.colour-item-container > * {
+	flex: 1;
 }
 
 .colour-item-container {
