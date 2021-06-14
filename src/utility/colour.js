@@ -15,8 +15,8 @@ export function hexToRGB(h) {
     g = "0x" + h[3] + h[4];
     b = "0x" + h[5] + h[6];
   }
-  
-  return {r: +r, b: +b, g: +g};
+  const rgb = [+r,+b,+g];
+  return rgb;
 }
 
 export function hexToHSL(H) {
@@ -60,6 +60,7 @@ export function hexToHSL(H) {
   s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
-
-  return {h, s, l};
+  
+  const hsl = [h, s, l];
+  return hsl;
 }

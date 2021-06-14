@@ -22,24 +22,42 @@ function App() {
     return processedColours;
   }
 
+  // Calculates the euclidean distance between v1 and v2
+  // Taken from: https://stackoverflow.com/questions/13586999/color-difference-similarity-between-two-values-with-js
+  const calcDistance = (v1, v2) => {
+    let d = 0;
+
+    for(let i = 0; i < v1.length; i++) {
+            d += (v1[i] - v2[i])*(v1[i] - v2[i]);
+        }
+    return Math.sqrt(d);
+  };
+
   const searchData = (searchTerm) => {
     // Sort colours 
-    //const colour = colours.filter(colour => colour.hex === searchTerm);
-    const sortedColours = sortColours(colours); 
+   
+    // Grab the specific colour in object form
+    const inputColour = colours.filter(colour => colour.hex === searchTerm);
+    console.log(inputColour);
 
-    setColours(sortedColours);
+    const newColours = colours.map((colour) => {
+      colour.dist = calcDistance(inputColour[0].rgb, colour.rgb);
+
+      return colour;
+    });
+
+    setColours(sortColours(newColours));
   }
 
-  // Sort by the utfc value of the hex code
 
   // Add splice() because sort returns same array so react won't rerender 
   // https://stackoverflow.com/questions/56362563/why-data-isnt-updating-after-sorting-in-react-hooks
   const sortColours = (colours) => {
     return colours.slice().sort(function(a, b){
-      if(a.hex < b.hex) {
+      if(a.dist < b.dist) {
         return -1;
       }
-      else if(a.hex > b.hex) {
+      else if(a.dist > b.dist) {
         return 1;
       }
       else {
