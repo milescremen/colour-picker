@@ -51,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      <SearchInput searchData={searchData} />
+      <SearchInput isLoaded={isLoaded} searchData={searchData} />
 
       {
         isLoaded ? <ColourList colours={colours}/> :

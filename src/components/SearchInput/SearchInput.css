@@ -15,3 +15,11 @@
 .form-button {
 	display: none;
 }
+
+.result-message {
+	margin-top: 1em;
+}
+
+input[type="text"]:disabled {
+	background-color: rgb(187, 195, 214);
+}
