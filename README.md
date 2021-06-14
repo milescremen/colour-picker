@@ -1,6 +1,6 @@
 Colour Picker Program
 
-Input a colour in Hex or Rgb and get 100 similar colours 
+Input a colour in Hex or Rgb and the program will display 100 similar colours
 
 Known Issues: 
 - When using colour picker, have to click textbox in order to submit the form.
