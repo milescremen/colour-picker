@@ -24,16 +24,18 @@ function App() {
 
   const searchData = (searchTerm) => {
     // Sort colours 
+    //const colour = colours.filter(colour => colour.hex === searchTerm);
+    const sortedColours = sortColours(colours); 
 
-    const colour = colours.filter(colour => colour.hex === searchTerm);
-
-    console.log("triggered search data");
-    setColours(sortData(colours));
+    setColours(sortedColours);
   }
 
   // Sort by the utfc value of the hex code
-  const sortData = (colours) => {
-    return colours.sort(function(a, b){
+
+  // Add splice() because sort returns same array so react won't rerender 
+  // https://stackoverflow.com/questions/56362563/why-data-isnt-updating-after-sorting-in-react-hooks
+  const sortColours = (colours) => {
+    return colours.slice().sort(function(a, b){
       if(a.hex < b.hex) {
         return -1;
       }
@@ -46,7 +48,6 @@ function App() {
     }) 
   }
 
-
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get('https://raw.githubusercontent.com/okmediagroup/color-test-resources/master/xkcd-colors.json');
@@ -58,7 +59,6 @@ function App() {
     }
     fetchData();
   }, []);
-
 
   return (
     <div className="App">
