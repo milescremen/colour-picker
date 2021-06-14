@@ -5,7 +5,10 @@ function ColourItem({colour}) {
 
   return (
     <div className="colour-item-container">
-      <p>{colour.id}</p>
+      <svg viewBox="0 0 220 100">
+        <rect fill={colour.hex} width="75" height="75" />
+      </svg>
+
       <p>{colour.color}</p>
       <p>{colour.hex}</p>
       <p>{colour.rgb.r}, {colour.rgb.g}, {colour.rgb.b}</p>

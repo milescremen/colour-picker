@@ -1,9 +1,14 @@
 .colour-item-container {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
-.colour-item-container > * {
+.colour-item-container > svg {
+	flex: 1;
+}
+
+.colour-item-container > p {
 	flex: 1;
 }
 
