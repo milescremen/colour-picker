@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import './ColourList.css';
 import ColourItem from '../ColourItem/ColourItem';
 
 function ColourList({colours}) {
   return <div className="colour-list-container">
     <div className="list-headings">
-      <h4></h4>
+      <h4> </h4>
       <h4>Name</h4>
       <h4>Hex</h4>
       <h4>RGB</h4>

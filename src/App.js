@@ -2,53 +2,25 @@ import "./App.css";
 import ColourList from './components/ColourList/ColourList';
 import SearchInput from "./components/SearchInput/SearchInput";
 import { useEffect, useState } from 'react';
-import { calcDistance, sortColours, processData } from "./utility/colour";
+import { calcDistance, sortColours, processData, checkRegex } from "./utility/colour";
 
 const axios = require('axios');
 
 function App() {
-  const [colours, setColours] = useState([]);
+  const [allColours, setAllColours] = useState([]); // Keep a copy of all colours
+  const [colours, setColours] = useState([]); // Current colours being displayed
   const [isLoaded, setIsLoaded] = useState(false);
   const [retryLoad, setRetryLoad] = useState(false);
   const [found, setFound] = useState(true);
   
   const searchData = (searchTerm) => {
+    // Check for a match using regex, return the search term object if a match is found 
+    const inputColour = checkRegex(searchTerm, allColours);
 
-    // Regular expression checking if starting with a # or rgb
-    //https://stackoverflow.com/questions/9682709/regexp-matching-hex-color-syntax-and-shorten-form
-    const RGBExpression = /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/;
-    //https://stackoverflow.com/questions/9585973/javascript-regular-expression-for-rgb-values/9586150
-    const hexExpression = /^#[0-9a-f]{3,6}$/i;
-
-    const matchRGB = RGBExpression.exec(searchTerm);
-    const matchHex = hexExpression.exec(searchTerm);
-    let inputColour = [];
-
-    if(matchHex !== null) {
-      inputColour = colours.filter(colour => colour.hex === searchTerm);
-    }
-    else if(matchRGB !== null) {
-      const searchArray = [parseInt(matchRGB[1]), parseInt(matchRGB[2]), parseInt(matchRGB[3])];
-      console.log(searchArray);
-      inputColour = colours.filter(colour => {
-        let equal = true;
-        for(let i = 0; i < colour.rgb.length; i++) {
-          if(colour.rgb[i] != searchArray[i]) {
-            equal = false;
-          }
-        };
-
-        return equal;
-      });
-    }
-    else {
-      console.log("Not found");
-      setFound(false);
-    }
-
-    if(inputColour[0] != null) {
-      // Calculate distances from the searched colour
-      const newColours = colours.map((colour) => {
+    if(inputColour != null && inputColour[0] != null) {
+      
+      // Calculate distances of each colour from the searched colour
+      const newColours = allColours.map((colour) => {
         colour.dist = calcDistance(inputColour[0].rgb, colour.rgb);
 
         return colour;
@@ -81,6 +53,7 @@ function App() {
       const processed = processData(colors);
 
       setColours(processed);
+      setAllColours(processed);
       setIsLoaded(true);
       setRetryLoad(false);
     }

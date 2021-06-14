@@ -1,5 +1,4 @@
-// Functions taken from https://css-tricks.com/converting-color-spaces-in-javascript/
-
+// Function taken from https://css-tricks.com/converting-color-spaces-in-javascript/
 export function hexToRGB(h) {
   let r = 0, g = 0, b = 0;
 
@@ -19,6 +18,7 @@ export function hexToRGB(h) {
   return rgb;
 }
 
+// Function taken from https://css-tricks.com/converting-color-spaces-in-javascript/
 export function hexToHSL(H) {
   // Convert hex to RGB first
   let r = 0, g = 0, b = 0;
@@ -68,7 +68,7 @@ export function hexToHSL(H) {
 
   // Sort by the euclidean distance between colour a and colour b
   // Add splice() because sort returns same array so react won't rerender 
-  // https://stackoverflow.com/questions/56362563/why-data-isnt-updating-after-sorting-in-react-hooks
+  // Taken from: https://stackoverflow.com/questions/56362563/why-data-isnt-updating-after-sorting-in-react-hooks
   export const sortColours = (colours) => {
     return colours.slice().sort(function(a, b){
       if(a.dist < b.dist) {
@@ -95,7 +95,7 @@ export function hexToHSL(H) {
     return Math.sqrt(d);
   };
 
-
+  // Adds extra info to the colours objects
   export const processData = (colours) => {
     const processedColours = colours.map((colour) => {
       colour.id = Math.floor(1000000 * Math.random());
@@ -106,4 +106,43 @@ export function hexToHSL(H) {
     });
 
     return processedColours;
+  }
+
+  export const checkRegex = (searchTerm, allColours) => 
+  {
+    // Regular expression checking if starting with a # or rgb
+    //https://stackoverflow.com/questions/9682709/regexp-matching-hex-color-syntax-and-shorten-form
+    //https://stackoverflow.com/questions/9585973/javascript-regular-expression-for-rgb-values/9586150
+    
+    let inputColour = [];
+
+    const RGBExpression = /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/;
+    const hexExpression = /^#[0-9a-f]{3,6}$/i;
+
+    const matchRGB = RGBExpression.exec(searchTerm);
+    const matchHex = hexExpression.exec(searchTerm);
+    
+    if(matchHex !== null) {
+      inputColour = allColours.filter(colour => colour.hex === searchTerm);
+    }
+    else if(matchRGB !== null) {
+      const searchArray = [parseInt(matchRGB[1]), parseInt(matchRGB[2]), parseInt(matchRGB[3])];
+
+      // Check for a rgb match with all the colours 
+      inputColour = allColours.filter(colour => {
+        let equal = true;
+        for(let i = 0; i < colour.rgb.length; i++) {
+          if(colour.rgb[i] !== searchArray[i]) {
+            equal = false;
+          }
+        };
+
+        return equal;
+      });
+    }
+    else {
+      inputColour = null;
+    }
+
+    return inputColour;
   }

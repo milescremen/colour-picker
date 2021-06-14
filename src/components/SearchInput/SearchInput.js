@@ -8,10 +8,12 @@ function SearchInput({ searchData, isLoaded }) {
   const search = (e) => {
     e.preventDefault();
 
+    // Clear input
     setText('');
 
+    // Callback function to App.js to filter out colours
     searchData(text);
-    
+   
     setMessage(`Results for "${text}".`)
   }
 
@@ -24,6 +26,9 @@ function SearchInput({ searchData, isLoaded }) {
       ? <input type="text" placeholder="Enter Colour" value={text} onChange={(e) => {setText(e.target.value)}} /> 
       : <input type="text" placeholder="Enter Colour" value={text} onChange={(e) => {setText(e.target.value)}} disabled /> 
       }
+
+      <input type="color" onChange={e => setText(e.target.value)} />
+
       <button className="form-button"></button>
     </form> 
      
