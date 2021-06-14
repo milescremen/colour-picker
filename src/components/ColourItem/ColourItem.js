@@ -6,7 +6,7 @@ function ColourItem({colour}) {
   return (
     <div className="colour-item-container">
       <svg viewBox="0 0 220 100">
-        <rect fill={colour.hex} width="75" height="75" />
+        <rect fill={colour.hex} width="100" height="100" />
       </svg>
 
       <p>{colour.color}</p>

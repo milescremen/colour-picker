@@ -4,14 +4,15 @@
 	align-items: center;
 }
 
+.colour-item-container > * {
+	margin-bottom: 1em;
+}
+
 .colour-item-container > svg {
 	flex: 1;
+	
 }
 
 .colour-item-container > p {
 	flex: 1;
-}
-
-.colour-item-container {
-	padding: .5em 0;
 }
