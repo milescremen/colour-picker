@@ -13,8 +13,38 @@ function App() {
   const [found, setFound] = useState(true);
   
   const searchData = (searchTerm) => {
-    // Grab the searched colour in object form
-    const inputColour = colours.filter(colour => colour.hex === searchTerm);
+
+    // Regular expression checking if starting with a # or rgb
+    //https://stackoverflow.com/questions/9682709/regexp-matching-hex-color-syntax-and-shorten-form
+    const RGBExpression = /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/;
+    //https://stackoverflow.com/questions/9585973/javascript-regular-expression-for-rgb-values/9586150
+    const hexExpression = /^#[0-9a-f]{3,6}$/i;
+
+    const matchRGB = RGBExpression.exec(searchTerm);
+    const matchHex = hexExpression.exec(searchTerm);
+    let inputColour = [];
+
+    if(matchHex !== null) {
+      inputColour = colours.filter(colour => colour.hex === searchTerm);
+    }
+    else if(matchRGB !== null) {
+      const searchArray = [parseInt(matchRGB[1]), parseInt(matchRGB[2]), parseInt(matchRGB[3])];
+      console.log(searchArray);
+      inputColour = colours.filter(colour => {
+        let equal = true;
+        for(let i = 0; i < colour.rgb.length; i++) {
+          if(colour.rgb[i] != searchArray[i]) {
+            equal = false;
+          }
+        };
+
+        return equal;
+      });
+    }
+    else {
+      console.log("Not found");
+      setFound(false);
+    }
 
     if(inputColour[0] != null) {
       // Calculate distances from the searched colour
@@ -23,7 +53,6 @@ function App() {
 
         return colour;
       });
-
 
       // Sort the colours by most similar
       const sortedColours = sortColours(newColours);
@@ -43,7 +72,7 @@ function App() {
       setFound(false);
     }
   }
-  
+
   async function fetchData() {
     try {
       const res = await axios.get('https://raw.githubusercontent.com/okmediagroup/color-test-resources/master/xkcd-colors.json');
