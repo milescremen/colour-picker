@@ -11,8 +11,8 @@ function ColourItem({colour}) {
 
       <p>{colour.color}</p>
       <p>{colour.hex}</p>
-      <p>{colour.rgb}</p>
-      <p>{colour.hsl}</p>
+      <p>{colour.rgb[0]}, {colour.rgb[1]}, {colour.rgb[2]}</p>
+      <p>{colour.hsl[0]}, {Math.floor(colour.hsl[1])}, {Math.floor(colour.hsl[2])}</p>
     </div>
   );
 }

@@ -66,6 +66,7 @@ export function hexToHSL(H) {
 }
 
 
+  // Sort by the euclidean distance between colour a and colour b
   // Add splice() because sort returns same array so react won't rerender 
   // https://stackoverflow.com/questions/56362563/why-data-isnt-updating-after-sorting-in-react-hooks
   export const sortColours = (colours) => {
