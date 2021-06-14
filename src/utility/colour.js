@@ -64,3 +64,45 @@ export function hexToHSL(H) {
   const hsl = [h, s, l];
   return hsl;
 }
+
+
+  // Add splice() because sort returns same array so react won't rerender 
+  // https://stackoverflow.com/questions/56362563/why-data-isnt-updating-after-sorting-in-react-hooks
+  export const sortColours = (colours) => {
+    return colours.slice().sort(function(a, b){
+      if(a.dist < b.dist) {
+        return -1;
+      }
+      else if(a.dist > b.dist) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    }) 
+  }
+
+
+  // Calculates the euclidean distance between v1 and v2
+  // Taken from: https://stackoverflow.com/questions/13586999/color-difference-similarity-between-two-values-with-js
+  export const calcDistance = (v1, v2) => {
+    let d = 0;
+
+    for(let i = 0; i < v1.length; i++) {
+            d += (v1[i] - v2[i])*(v1[i] - v2[i]);
+        }
+    return Math.sqrt(d);
+  };
+
+
+  export const processData = (colours) => {
+    const processedColours = colours.map((colour) => {
+      colour.id = Math.floor(1000000 * Math.random());
+      colour.rgb = hexToRGB(colour.hex);
+      colour.hsl = hexToHSL(colour.hex);
+
+      return colour;
+    });
+
+    return processedColours;
+  }

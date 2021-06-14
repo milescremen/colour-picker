@@ -14,3 +14,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.retry-button {
+  padding: 1em 2em;
+  background-color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
