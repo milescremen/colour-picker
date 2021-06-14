@@ -11,6 +11,7 @@ function SearchInput({ searchData, isLoaded }) {
     setText('');
 
     searchData(text);
+    
     setMessage(`Results for "${text}".`)
   }
 
@@ -25,7 +26,7 @@ function SearchInput({ searchData, isLoaded }) {
       }
       <button className="form-button"></button>
     </form> 
-
+     
     <p className="result-message">{message}</p>
   </div>
 }

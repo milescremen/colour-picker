@@ -6,27 +6,43 @@ import { calcDistance, sortColours, processData } from "./utility/colour";
 
 const axios = require('axios');
 
-
 function App() {
   const [colours, setColours] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [retryLoad, setRetryLoad] = useState(false);
+  const [found, setFound] = useState(true);
   
   const searchData = (searchTerm) => {
-    // Sort colours 
-   
-    // Grab the specific colour in object form
+    // Grab the searched colour in object form
     const inputColour = colours.filter(colour => colour.hex === searchTerm);
 
-    const newColours = colours.map((colour) => {
-      colour.dist = calcDistance(inputColour[0].rgb, colour.rgb);
+    if(inputColour[0] != null) {
+      // Calculate distances from the searched colour
+      const newColours = colours.map((colour) => {
+        colour.dist = calcDistance(inputColour[0].rgb, colour.rgb);
 
-      return colour;
-    });
+        return colour;
+      });
 
-    setColours(sortColours(newColours));
+
+      // Sort the colours by most similar
+      const sortedColours = sortColours(newColours);
+
+      // Filter out top 100 results
+      let filteredColours = [];
+      for(let i = 0; i < 100; i++)
+      {
+        filteredColours.push(sortedColours[i]);
+      }
+
+      setColours(filteredColours);
+      setFound(true);
+    }
+    else {
+      console.log("Not found");
+      setFound(false);
+    }
   }
-
   
   async function fetchData() {
     try {
@@ -52,6 +68,8 @@ function App() {
   return (
     <div className="App">
       <SearchInput isLoaded={isLoaded} searchData={searchData} />
+        
+      {!found && <p className="error-message">Error, colour not found</p>}
 
       {
         isLoaded ? <ColourList colours={colours}/> :
